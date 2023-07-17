@@ -7,5 +7,5 @@ assignees: solar3070
 
 ---
 
-✨ Description
+## ✨ Description
 구현할 기능 작성
