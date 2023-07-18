@@ -7,25 +7,43 @@ interface InputProps {
   placeholder: string;
   value?: string;
   maxLength?: number;
-  isInvalid?: boolean;
+  error?: string;
+  hasCounter?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onFocus: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-function Input({ placeholder, value, maxLength, isInvalid = false, onChange, onKeyDown }: InputProps) {
+function Input({
+  placeholder,
+  value = "",
+  maxLength,
+  error = "",
+  hasCounter = false,
+  onChange,
+  onKeyDown,
+  onFocus,
+}: InputProps) {
   return (
-    <StWrapper>
-      <StInput
-        type="text"
-        placeholder={placeholder}
-        value={value}
-        maxLength={maxLength}
-        isInvalid={isInvalid}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-      />
-      <Image src="/icons/enter.svg" alt="엔터 아이콘" width={14} height={11} />
-    </StWrapper>
+    <>
+      <StInputWrapper>
+        <StInput
+          type="text"
+          placeholder={placeholder}
+          value={value}
+          maxLength={maxLength}
+          isInvalid={error !== ""}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          onFocus={onFocus}
+        />
+        <Image src="/icons/enter.svg" alt="엔터 아이콘" width={14} height={11} />
+      </StInputWrapper>
+      <StWrapper>
+        {error && <StErrorMessage>{error}</StErrorMessage>}
+        {hasCounter && <StCounter>{value.length} / 5</StCounter>}
+      </StWrapper>
+    </>
   );
 }
 
@@ -46,7 +64,7 @@ const shake = keyframes`
   }
 `;
 
-const StWrapper = styled.div`
+const StInputWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -85,4 +103,29 @@ const StInput = styled.input<{ isInvalid: boolean }>`
     css`
       animation: ${shake} 0.2s ease-in-out 2;
     `};
+`;
+
+const StWrapper = styled.div`
+  position: relative;
+  height: 20px;
+`;
+
+const StCounter = styled.div`
+  display: flex;
+  justify-content: end;
+  position: absolute;
+  right: 0;
+
+  padding: 10px;
+  font-size: 15px;
+  color: ${COLOR.gray};
+`;
+
+const StErrorMessage = styled.p`
+  position: absolute;
+  left: 0;
+
+  padding: 10px 0 0 10px;
+  font-size: 15px;
+  color: ${COLOR.purple};
 `;
