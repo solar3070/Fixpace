@@ -2,14 +2,17 @@ import { createTextByOpenAI } from "@/apis/text";
 import { Input, Layout } from "@/components/common";
 import COLOR from "@/constants/colors";
 import useInputValidation from "@/hooks/useInputValidation";
+import { textState } from "@/recoil/text/atom";
 import styled from "@emotion/styled";
 import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
 
 const MAX_KEYWORD = 5;
 
 export default function Home() {
   const [keyword, setKeyword] = useState("");
   const { error, handleError, resetError } = useInputValidation();
+  const setText = useSetRecoilState(textState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -31,6 +34,7 @@ export default function Home() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { result } = await createTextByOpenAI(keyword);
+    setText(result);
   };
 
   return (
