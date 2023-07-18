@@ -1,4 +1,5 @@
-import { Layout, Input } from "@/components/common";
+import { createTextByOpenAI } from "@/apis/text";
+import { Input, Layout } from "@/components/common";
 import COLOR from "@/constants/colors";
 import useInputValidation from "@/hooks/useInputValidation";
 import styled from "@emotion/styled";
@@ -21,16 +22,15 @@ export default function Home() {
     setKeyword(value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      // TODO: 입력된 키워드로 gpt-turbo-3.5 호출
-    }
-  };
-
   const handleFocus = () => {
     if (error !== "") {
       resetError();
     }
+  };
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { result } = await createTextByOpenAI(keyword);
   };
 
   return (
@@ -38,15 +38,16 @@ export default function Home() {
       <StInfoText>
         안녕하세요. 띄어쓰기 연습을 위한 Fi<span style={{ color: `${COLOR.purple}` }}>x</span>face 입니다.
       </StInfoText>
-      <Input
-        placeholder="타이핑할 키워드를 입력해주세요."
-        value={keyword}
-        error={error}
-        hasCounter={true}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        onFocus={handleFocus}
-      />
+      <form onSubmit={onSubmit}>
+        <Input
+          placeholder="타이핑할 키워드를 입력해주세요."
+          value={keyword}
+          error={error}
+          hasCounter={true}
+          onChange={handleChange}
+          onFocus={handleFocus}
+        />
+      </form>
     </Layout>
   );
 }

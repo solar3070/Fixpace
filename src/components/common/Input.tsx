@@ -10,8 +10,8 @@ interface InputProps {
   error?: string;
   hasCounter?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onFocus: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 function Input({
@@ -34,8 +34,8 @@ function Input({
           maxLength={maxLength}
           isInvalid={error !== ""}
           onChange={onChange}
-          onKeyDown={onKeyDown}
           onFocus={onFocus}
+          onKeyDown={onKeyDown}
         />
         <Image src="/icons/enter.svg" alt="엔터 아이콘" width={14} height={11} />
       </StInputWrapper>
