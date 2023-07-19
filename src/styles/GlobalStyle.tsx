@@ -1,4 +1,3 @@
-
 import { COLOR } from "@/constants";
 import { css, Global } from "@emotion/react";
 
