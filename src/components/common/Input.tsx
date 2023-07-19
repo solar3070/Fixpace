@@ -1,7 +1,8 @@
-import COLOR from "@/constants/colors";
+import { COLOR } from "@/constants";
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
+import { ChangeEvent, FocusEvent, KeyboardEvent } from "react";
 
 interface InputProps {
   placeholder: string;
@@ -9,9 +10,9 @@ interface InputProps {
   maxLength?: number;
   error?: string;
   hasCounter?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onFocus: (e: React.FocusEvent<HTMLInputElement>) => void;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onFocus: (e: FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 function Input({

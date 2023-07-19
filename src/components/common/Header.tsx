@@ -1,4 +1,4 @@
-import COLOR from "@/constants/colors";
+import { COLOR } from "@/constants";
 import styled from "@emotion/styled";
 import Image from "next/image";
 

@@ -1,7 +1,6 @@
 import { generateTextByOpenAI, spellCheckText } from "@/apis";
 import { Input, Layout } from "@/components/common";
-import { MAX_KEYWORD } from "@/constants";
-import COLOR from "@/constants/colors";
+import { COLOR, MAX_KEYWORD } from "@/constants";
 import useInputValidation from "@/hooks/useInputValidation";
 import { textState } from "@/recoil/atom";
 import { SpellCheck } from "@/types";
