@@ -1,4 +1,4 @@
-import type { ResponseError, Text } from "@/types";
+import type { ResponseError, TextResponse } from "@/types";
 import { isAxiosError } from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Configuration, OpenAIApi } from "openai";
@@ -6,7 +6,7 @@ import { Configuration, OpenAIApi } from "openai";
 const configuration = new Configuration({ apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY });
 const openai = new OpenAIApi(configuration);
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Text | ResponseError>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<TextResponse | ResponseError>) {
   if (!configuration.apiKey) {
     res.status(500).json({ message: "OpenAI API key not configured, please follow instructions in README.md" });
     return;
@@ -29,9 +29,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         },
       ],
     });
-    const result = data.choices[0].message?.content;
-    if (result) {
-      res.status(200).json({ result });
+    const text = data.choices[0].message?.content;
+    if (text) {
+      res.status(200).json({ text });
     }
   } catch (error) {
     if (isAxiosError<ResponseError>(error)) {
