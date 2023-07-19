@@ -3,7 +3,7 @@ import { Input, Layout } from "@/components/common";
 import { COLOR, MAX_KEYWORD } from "@/constants";
 import useInputValidation from "@/hooks/useInputValidation";
 import { textState } from "@/recoil/atom";
-import { SpellCheck } from "@/types";
+import { correctText } from "@/utils/correctText";
 import styled from "@emotion/styled";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useSetRecoilState } from "recoil";
@@ -30,24 +30,11 @@ export default function Home() {
     }
   };
 
-  const correctText = (text: string, checkList: SpellCheck[]) => {
-    let temp = text;
-    checkList.map(({ token, suggestions }: SpellCheck) => {
-      temp = temp.replace(token, suggestions[0]);
-    });
-    return temp;
-  };
-
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { text } = await generateTextByOpenAI(keyword);
     const checkList = await spellCheckText("");
-
-    if (checkList.length > 0) {
-      setText(correctText(text, checkList));
-      return;
-    }
-    setText(text);
+    setText(checkList.length > 0 ? correctText(text, checkList) : text);
   };
 
   return (
