@@ -1,4 +1,5 @@
-import COLOR from "@/constants/colors";
+
+import { COLOR } from "@/constants";
 import { css, Global } from "@emotion/react";
 
 function GlobalStyle() {

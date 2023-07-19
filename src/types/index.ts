@@ -3,5 +3,11 @@ export type ResponseError = {
 };
 
 export type Text = {
-  result: string;
+  text: string;
+};
+
+export type SpellCheck = {
+  token: string;
+  suggestions: string[];
+  info: string;
 };

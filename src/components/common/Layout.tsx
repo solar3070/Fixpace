@@ -1,5 +1,5 @@
 import Header from "@/components/common/Header";
-import COLOR from "@/constants/colors";
+import { COLOR } from "@/constants";
 import styled from "@emotion/styled";
 
 interface LayoutProps {
