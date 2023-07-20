@@ -16,7 +16,7 @@ function Keyword({ onSubmit }: KeywordProps) {
     const { value } = e.target;
     if (value.length > MAX_KEYWORD) {
       setInputValue(inputValue.slice(0, MAX_KEYWORD));
-      handleError("length");
+      handleError("MAX_KEYWORD");
       e.target.blur();
       return;
     }
