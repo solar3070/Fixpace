@@ -1,27 +1,24 @@
-import { generateTextByOpenAI, spellCheckText } from "@/apis";
 import { Input, Layout } from "@/components/common";
+import Typing from "@/components/Typing";
 import { COLOR, MAX_KEYWORD } from "@/constants";
 import useInputValidation from "@/hooks/useInputValidation";
-import { textState } from "@/recoil/atom";
-import { correctText } from "@/utils/correctText";
 import styled from "@emotion/styled";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useSetRecoilState } from "recoil";
 
 export default function Home() {
-  const [keyword, setKeyword] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const { error, handleError, resetError } = useInputValidation();
-  const setText = useSetRecoilState(textState);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     if (value.length > MAX_KEYWORD) {
-      setKeyword(keyword.slice(0, MAX_KEYWORD));
+      setInputValue(inputValue.slice(0, MAX_KEYWORD));
       handleError("length");
       e.target.blur();
       return;
     }
-    setKeyword(value);
+    setInputValue(value);
   };
 
   const handleFocus = () => {
@@ -32,26 +29,29 @@ export default function Home() {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { text } = await generateTextByOpenAI(keyword);
-    const checkList = await spellCheckText("");
-    setText(checkList.length > 0 ? correctText(text, checkList) : text);
+    setSubmitted(true);
   };
 
   return (
     <Layout>
-      <StInfoText>
-        안녕하세요. 띄어쓰기 연습을 위한 Fi<span style={{ color: `${COLOR.purple}` }}>x</span>face 입니다.
-      </StInfoText>
-      <form onSubmit={onSubmit}>
-        <Input
-          placeholder="타이핑할 키워드를 입력해주세요."
-          value={keyword}
-          error={error}
-          hasCounter={true}
-          onChange={handleChange}
-          onFocus={handleFocus}
-        />
-      </form>
+      {!submitted && (
+        <>
+          <StInfoText>
+            안녕하세요. 띄어쓰기 연습을 위한 Fi<span style={{ color: `${COLOR.purple}` }}>x</span>face 입니다.
+          </StInfoText>
+          <form onSubmit={onSubmit}>
+            <Input
+              placeholder="타이핑할 키워드를 입력해주세요."
+              value={inputValue}
+              error={error}
+              hasCounter={true}
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
+          </form>
+        </>
+      )}
+      {submitted && <Typing keyword={inputValue} />}
     </Layout>
   );
 }
