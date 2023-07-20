@@ -18,7 +18,7 @@ function Typing({ keyword }: TypingProps) {
   return (
     <>
       <Suspense fallback={<div style={{ color: "red", fontSize: "30px" }}>loading...</div>}>
-        <Text keyword={keyword}></Text>
+        <Text keyword={keyword} />
       </Suspense>
       <Input
         placeholder="타이핑할 키워드를 입력해주세요."

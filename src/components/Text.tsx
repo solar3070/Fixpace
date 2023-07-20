@@ -1,8 +1,7 @@
 import { useGenerateText, useSpellCheck } from "@/hooks/queries";
 import { correctText } from "@/utils/correctText";
-import styled from "@emotion/styled";
 
-function Test({ keyword }: { keyword: string }) {
+function Text({ keyword }: { keyword: string }) {
   let text = "";
   let answer = "";
 
@@ -20,4 +19,4 @@ function Test({ keyword }: { keyword: string }) {
   return <div style={{ color: "green" }}>{answer}</div>;
 }
 
-export default Test;
+export default Text;
