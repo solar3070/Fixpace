@@ -7,3 +7,7 @@ export const correctText = (text: string, checkList: SpellCheck[]) => {
   });
   return temp;
 };
+
+export const removeSpaces = (text: string) => {
+  return text.replace(/(\.|\s)/gi, (_, char) => (char === "." ? ".\n" : ""));
+};
