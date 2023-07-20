@@ -10,20 +10,20 @@ interface InputProps {
   maxLength?: number;
   error?: string;
   hasCounter?: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onFocus: (e: FocusEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 function Input({
   placeholder,
-  value = "",
+  value,
   maxLength,
   error = "",
   hasCounter = false,
+  onFocus,
   onChange,
   onKeyDown,
-  onFocus,
 }: InputProps) {
   return (
     <>
@@ -34,15 +34,15 @@ function Input({
           value={value}
           maxLength={maxLength}
           isInvalid={error !== ""}
-          onChange={onChange}
           onFocus={onFocus}
+          onChange={onChange}
           onKeyDown={onKeyDown}
         />
         <Image src="/icons/enter.svg" alt="엔터 아이콘" width={14} height={11} />
       </StInputWrapper>
       <StWrapper>
         {error && <StErrorMessage>{error}</StErrorMessage>}
-        {hasCounter && <StCounter>{value.length} / 5</StCounter>}
+        {hasCounter && value && <StCounter>{value.length} / 5</StCounter>}
       </StWrapper>
     </>
   );
