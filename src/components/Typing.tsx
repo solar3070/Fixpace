@@ -13,16 +13,19 @@ function Typing({ keyword }: TypingProps) {
   const { error, handleError, resetError } = useInputValidation();
   const [sentenceList, setSentenceList] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [userInputList, setUserInputList] = useState<string[]>([]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.nativeEvent.isComposing) {
-      const errorType = validateInput(sentenceList[currentIndex], e.currentTarget.value);
+      const value = e.currentTarget.value;
+      const errorType = validateInput(sentenceList[currentIndex], value);
       if (errorType !== "NO_ERROR") {
         handleError(errorType);
         e.currentTarget.blur();
         return;
       }
       setCurrentIndex((prev) => prev + 1);
+      setUserInputList((prev) => [...prev, value]);
       e.currentTarget.value = "";
     }
   };
