@@ -42,7 +42,7 @@ function Input({
       </StInputWrapper>
       <StWrapper>
         {error && <StErrorMessage>{error}</StErrorMessage>}
-        {hasCounter && value && <StCounter>{value.length} / 5</StCounter>}
+        {hasCounter && value !== undefined && <StCounter>{value.length} / 5</StCounter>}
       </StWrapper>
     </>
   );
