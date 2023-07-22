@@ -13,6 +13,7 @@ interface InputProps {
   onFocus: (e: FocusEvent<HTMLInputElement>) => void;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onKeyUp?: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 function Input({
@@ -24,6 +25,7 @@ function Input({
   onFocus,
   onChange,
   onKeyDown,
+  onKeyUp,
 }: InputProps) {
   return (
     <>
@@ -37,12 +39,13 @@ function Input({
           onFocus={onFocus}
           onChange={onChange}
           onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
         />
         <Image src="/icons/enter.svg" alt="엔터 아이콘" width={14} height={11} />
       </StInputWrapper>
       <StWrapper>
         {error && <StErrorMessage>{error}</StErrorMessage>}
-        {hasCounter && value && <StCounter>{value.length} / 5</StCounter>}
+        {hasCounter && value !== undefined && <StCounter>{value.length} / 5</StCounter>}
       </StWrapper>
     </>
   );
