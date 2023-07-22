@@ -1,12 +1,16 @@
 import { KeyboardEvent } from "react";
 
-export const animateSpace = (e: KeyboardEvent<HTMLInputElement>) => {
-  const section = e.currentTarget.parentElement?.closest("section");
+let counter = 0;
 
+export const animateSpace = (e: KeyboardEvent<HTMLInputElement>) => {
+  if (counter > 15) return;
+
+  const section = e.currentTarget.parentElement?.closest("section");
   if (section) {
     let keyElement = document.createElement("img");
     keyElement.src = "/icons/sparkle.svg";
     document.body.appendChild(keyElement);
+    counter += 1;
 
     const { randX, randY } = setRandomPosition(section);
     const randPx = `${Math.round(Math.random() * 15) + 20}px`;
@@ -17,7 +21,7 @@ export const animateSpace = (e: KeyboardEvent<HTMLInputElement>) => {
       top: ${randY}px;
       width: ${randPx};
       height: ${randPx};
-      transition: all 3s linear 0s;
+      transition: all 2s linear 0s;
       opacity: 0;
     `;
 
@@ -28,6 +32,7 @@ export const animateSpace = (e: KeyboardEvent<HTMLInputElement>) => {
 
     setTimeout(() => {
       document.body.removeChild(keyElement);
+      counter -= 1;
     }, 2000);
   }
 };
