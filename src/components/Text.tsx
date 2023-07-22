@@ -58,7 +58,7 @@ const StText = styled.p<{ current: boolean }>`
   padding: 5px 5px 0 5px;
   border-radius: 5px;
 
-  color: ${COLOR.gray};
+  color: ${COLOR.gray100};
   font-size: 26px;
   line-height: 1.5;
 

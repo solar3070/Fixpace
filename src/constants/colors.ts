@@ -1,7 +1,8 @@
 const COLOR = {
   white: "#fff",
   black: "#000",
-  gray: "#989CAC",
+  gray100: "#989CAC",
+  gray200: "#525567",
   purple: "#7F7CF7",
   purpleOpacity: "rgba(127, 124, 247, 0.2)",
   dark100: "#43464F",

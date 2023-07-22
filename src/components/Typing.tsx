@@ -95,7 +95,7 @@ const StSpace = styled.div<{ spacePressed: boolean }>`
   background-color: ${COLOR.purple};
   font-size: 20px;
   color: ${COLOR.white};
-  box-shadow: 0 4px ${COLOR.gray};
+  box-shadow: 0 4px ${COLOR.gray100};
 
   ${({ spacePressed }) =>
     spacePressed &&
