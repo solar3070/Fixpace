@@ -4,6 +4,7 @@ import Text from "@/components/Text";
 import { COLOR } from "@/constants";
 import useInputValidation from "@/hooks/useInputValidation";
 import { validateInput } from "@/utils";
+import { animateSpace } from "@/utils/animateSpace";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { KeyboardEvent, Suspense, useState } from "react";
@@ -35,6 +36,7 @@ function Typing({ keyword }: TypingProps) {
 
     if (e.key === " ") {
       setSpacePressed(true);
+      animateSpace(e);
     }
   };
 
