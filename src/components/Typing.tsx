@@ -1,8 +1,11 @@
 import { Input } from "@/components/common";
 import Skeleton from "@/components/common/Skeleton";
 import Text from "@/components/Text";
+import { COLOR } from "@/constants";
 import useInputValidation from "@/hooks/useInputValidation";
 import { validateInput } from "@/utils";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { KeyboardEvent, Suspense, useState } from "react";
 
 interface TypingProps {
@@ -14,6 +17,7 @@ function Typing({ keyword }: TypingProps) {
   const [sentenceList, setSentenceList] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userInputList, setUserInputList] = useState<string[]>([]);
+  const [spacePressed, setSpacePressed] = useState(false);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.nativeEvent.isComposing) {
@@ -27,6 +31,16 @@ function Typing({ keyword }: TypingProps) {
       setCurrentIndex((prev) => prev + 1);
       setUserInputList((prev) => [...prev, value]);
       e.currentTarget.value = "";
+    }
+
+    if (e.key === " ") {
+      setSpacePressed(true);
+    }
+  };
+
+  const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === " ") {
+      setSpacePressed(false);
     }
   };
 
@@ -50,10 +64,41 @@ function Typing({ keyword }: TypingProps) {
         placeholder="제시된 문장에 올바른 띄어쓰기를 해주세요."
         error={error}
         onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
         onFocus={handleFocus}
       />
+      <StSpace spacePressed={spacePressed}>space</StSpace>
     </>
   );
 }
 
 export default Typing;
+
+const StSpace = styled.div<{ spacePressed: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  width: 370px;
+  height: 45px;
+  margin: 50px 0 10px 0;
+
+  border: 2px solid ${COLOR.white};
+  border-radius: 10px;
+
+  background-color: ${COLOR.purple};
+  font-size: 20px;
+  color: ${COLOR.white};
+  box-shadow: 0 4px ${COLOR.gray};
+
+  ${({ spacePressed }) =>
+    spacePressed &&
+    css`
+      box-shadow: inset 3px 8px 10px #5351c9;
+      top: 2px;
+    `};
+`;
