@@ -1,9 +1,11 @@
 import { COLOR } from "@/constants";
 import { useGenerateText, useSpellCheck } from "@/hooks/queries";
-import { correctText, splitText } from "@/utils";
+import { correctTextState } from "@/recoil/atom";
+import { checkText, removeSpace, splitText } from "@/utils";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useEffect } from "react";
+import { useRecoilState } from "recoil";
 
 interface TextProps {
   keyword: string;
@@ -19,11 +21,14 @@ function Text({ keyword, sentenceList, currentIndex, setSentenceList }: TextProp
     text = textQuery.data.text;
   }
   const checkQuery = useSpellCheck(text, sentenceList);
+  const [correctText, setCorrectText] = useRecoilState(correctTextState);
 
   useEffect(() => {
-    if (checkQuery.isSuccess && !sentenceList.length) {
+    if (checkQuery.isSuccess && !sentenceList.length && !correctText.length) {
       const checkList = checkQuery.data;
-      const textList = splitText(checkList.length ? correctText(text, checkList) : text);
+      const correct = checkList.length ? checkText(text, checkList) : text;
+      setCorrectText(splitText(correct));
+      const textList = splitText(removeSpace(correct));
       setSentenceList(textList);
     }
   }, [checkQuery]);
@@ -58,7 +63,7 @@ const StText = styled.p<{ current: boolean }>`
   padding: 5px 5px 0 5px;
   border-radius: 5px;
 
-  color: ${COLOR.gray};
+  color: ${COLOR.gray100};
   font-size: 26px;
   line-height: 1.5;
 

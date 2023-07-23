@@ -94,7 +94,7 @@ const StInput = styled.input<{ isInvalid: boolean }>`
   caret-color: ${COLOR.purple};
 
   &::placeholder {
-    color: ${COLOR.gray};
+    color: ${COLOR.gray200};
     overflow: visible;
   }
 
@@ -122,7 +122,7 @@ const StCounter = styled.div`
 
   padding: 10px;
   font-size: 15px;
-  color: ${COLOR.gray};
+  color: ${COLOR.gray100};
 `;
 
 const StErrorMessage = styled.p`
