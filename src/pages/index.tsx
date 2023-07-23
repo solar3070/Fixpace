@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <Layout>
       {!submitted && <Keyword onSubmit={handleSubmit} />}
-      {submitted && <Typing keyword={keyword} />}
+      {submitted && <Typing keyword={keyword} setSubmitted={setSubmitted}/>}
     </Layout>
   );
 }

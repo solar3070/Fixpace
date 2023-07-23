@@ -14,9 +14,10 @@ import { useRecoilValue } from "recoil";
 
 interface TypingProps {
   keyword: string;
+  setSubmitted: (submitted: boolean) => void;
 }
 
-function Typing({ keyword }: TypingProps) {
+function Typing({ keyword, setSubmitted }: TypingProps) {
   const { error, handleError, resetError } = useInputValidation();
   const [sentenceList, setSentenceList] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -63,7 +64,7 @@ function Typing({ keyword }: TypingProps) {
 
   return (
     <>
-      {done && (
+      {!done && (
         <>
           <Suspense fallback={<Skeleton />}>
             <Text
@@ -83,10 +84,12 @@ function Typing({ keyword }: TypingProps) {
           <StSpace spacePressed={spacePressed}>space</StSpace>
         </>
       )}
-      {!done && (
+      {done && (
         <>
           <Correct userInputList={userInputList} correctList={correctList} />
-          <Accuracy accuracy={calcAccuracy(userInputList, correctList)} />
+          <StAccuracy>
+            <Accuracy accuracy={calcAccuracy(userInputList, correctList)} setSubmitted={setSubmitted} />
+          </StAccuracy>
         </>
       )}
     </>
@@ -122,4 +125,9 @@ const StSpace = styled.div<{ spacePressed: boolean }>`
       box-shadow: inset 3px 8px 10px #5351c9;
       top: 2px;
     `};
+`;
+
+const StAccuracy = styled.div`
+  display: flex;
+  justify-content: end;
 `;
