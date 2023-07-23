@@ -72,3 +72,13 @@ export const checkUserInput = (userText: string, correctText: string) => {
 
   return result;
 };
+
+export const calcAccuracy = (userInputList: string[], correctList: string[]) => {
+  let sum = 0;
+  correctList.forEach((correct, index) => {
+    const correctSpaceLength = correct.split(" ").length - 1;
+    const userSpaceLength = userInputList[index].split(" ").length - 1;
+    sum += Math.round((userSpaceLength / correctSpaceLength) * 100);
+  });
+  return Math.round(sum / correctList.length);
+};
