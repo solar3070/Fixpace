@@ -1,4 +1,4 @@
-import { Input, Layout } from "@/components/common";
+import { Layout } from "@/components/common";
 import Keyword from "@/components/Keyword";
 import Typing from "@/components/Typing";
 import { FormEvent, useState } from "react";
