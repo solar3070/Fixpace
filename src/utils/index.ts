@@ -1,7 +1,7 @@
 import { ErrorType } from "@/hooks/useInputValidation";
 import { SpellCheck } from "@/types";
 
-export const correctText = (text: string, checkList: SpellCheck[]) => {
+export const checkText = (text: string, checkList: SpellCheck[]) => {
   let temp = text;
   checkList.map(({ token, suggestions }: SpellCheck) => {
     temp = temp.replace(token, suggestions[0]);
@@ -14,8 +14,7 @@ export const removeSpace = (text: string) => {
 };
 
 export const splitText = (text: string) => {
-  const spaceRemovedText = removeSpace(text);
-  const sentenceList = spaceRemovedText.match(/[^.!?]+[.!?]/g);
+  const sentenceList = text.match(/[^.]+[.]/g);
   if (sentenceList) {
     return sentenceList.map((sentence) => sentence.trim());
   }
@@ -39,4 +38,37 @@ export const validateInput = (sentence: string, userInput: string): ErrorType =>
     return "LENGTH";
   }
   return "NO_ERROR";
+};
+
+type resultType = {
+  correct?: string;
+  user: string;
+};
+
+export const checkUserInput = (userText: string, correctText: string) => {
+  const correct = correctText.split(" ");
+  const user = userText.split(" ");
+
+  let result: resultType[] = [];
+  let userIndex = 0;
+  let wordSum = "";
+  let wordList: string[] = [];
+
+  correct.forEach((word) => {
+    if (word !== user[userIndex]) {
+      wordSum += word;
+      wordList.push(word);
+      if (wordSum === user[userIndex]) {
+        result.push({ correct: wordList.join(" "), user: wordSum + " " });
+        wordSum = "";
+        wordList = [];
+        userIndex += 1;
+      }
+    } else {
+      result.push({ user: user[userIndex] + " " });
+      userIndex += 1;
+    }
+  });
+
+  return result;
 };
