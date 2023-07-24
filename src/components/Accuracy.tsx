@@ -1,9 +1,7 @@
 import { COLOR } from "@/constants";
-import { correctTextState } from "@/recoil/atom";
 import { StepType } from "@/types";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { useSetRecoilState } from "recoil";
 
 interface AccuracyProps {
   accuracy: number;
@@ -11,19 +9,12 @@ interface AccuracyProps {
 }
 
 function Accuracy({ accuracy, changeStep }: AccuracyProps) {
-  const setCorrectTextState = useSetRecoilState(correctTextState);
-
-  const handleClick = () => {
-    changeStep(1);
-    setCorrectTextState([]);
-  };
-
   return (
     <StAccuracyWrapper>
       <StAccuracy>
         정확도 <span style={{ color: COLOR.purple }}>{accuracy}</span>%
       </StAccuracy>
-      <StReplay onClick={handleClick}>
+      <StReplay onClick={() => changeStep(1)}>
         <Image src="/icons/replay.svg" alt="다시하기" width={19} height={25} />
       </StReplay>
     </StAccuracyWrapper>
