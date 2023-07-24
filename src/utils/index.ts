@@ -1,6 +1,9 @@
 import { ErrorType } from "@/hooks/useInputValidation";
 import { SpellCheck } from "@/types";
 
+export { default as calcAccuracy } from "./calcAccuracy";
+export { default as checkUserInput } from "./checkUserInput";
+
 export const checkText = (text: string, checkList: SpellCheck[]) => {
   let temp = text;
   checkList.map(({ token, suggestions }: SpellCheck) => {
@@ -38,47 +41,4 @@ export const validateInput = (sentence: string, userInput: string): ErrorType =>
     return "LENGTH";
   }
   return "NO_ERROR";
-};
-
-type resultType = {
-  correct?: string;
-  user: string;
-};
-
-export const checkUserInput = (userText: string, correctText: string) => {
-  const correct = correctText.split(" ");
-  const user = userText.split(" ");
-
-  let result: resultType[] = [];
-  let userIndex = 0;
-  let wordSum = "";
-  let wordList: string[] = [];
-
-  correct.forEach((word) => {
-    if (word !== user[userIndex]) {
-      wordSum += word;
-      wordList.push(word);
-      if (wordSum === user[userIndex]) {
-        result.push({ correct: wordList.join(" "), user: wordSum + " " });
-        wordSum = "";
-        wordList = [];
-        userIndex += 1;
-      }
-    } else {
-      result.push({ user: user[userIndex] + " " });
-      userIndex += 1;
-    }
-  });
-
-  return result;
-};
-
-export const calcAccuracy = (userInputList: string[], correctList: string[]) => {
-  let sum = 0;
-  correctList.forEach((correct, index) => {
-    const correctSpaceLength = correct.split(" ").length - 1;
-    const userSpaceLength = userInputList[index].split(" ").length - 1;
-    sum += Math.round((userSpaceLength / correctSpaceLength) * 100);
-  });
-  return Math.round(sum / correctList.length);
 };

@@ -13,3 +13,8 @@ export type SpellCheck = {
 };
 
 export type StepType = 1 | 2 | 3;
+
+export type CorrectUserInput = {
+  correctWord?: string;
+  userWord: string;
+};

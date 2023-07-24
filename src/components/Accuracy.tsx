@@ -28,7 +28,7 @@ const StAccuracyWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 260px;
+  width: fit-content;
   height: 80px;
 
   padding: 20px;
@@ -38,7 +38,7 @@ const StAccuracyWrapper = styled.div`
 `;
 
 const StAccuracy = styled.p`
-  padding-top: 10px;
+  padding: 10px 10px 0px 0;
 
   color: ${COLOR.white};
   font-size: 30px;

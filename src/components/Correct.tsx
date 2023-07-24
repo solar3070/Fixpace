@@ -1,47 +1,30 @@
 import { COLOR } from "@/constants";
-import { checkUserInput } from "@/utils";
+import { CorrectUserInput } from "@/types";
 import styled from "@emotion/styled";
 
 interface CorrectProps {
-  userInputList: string[];
-  correctList: string[];
+  result: CorrectUserInput[];
 }
 
-function Correct({ userInputList, correctList }: CorrectProps) {
+function Correct({ result }: CorrectProps) {
   return (
-    <StTextWrapper>
-      {userInputList.map((userInput, index) => {
-        const result = checkUserInput(userInput, correctList[index]);
-        return (
-          <StLine key={index}>
-            {result.map(({ user, correct }, index) =>
-              correct ? (
-                <StText key={index}>
-                  <span>{user}</span>
-                  <StCorrect>'{correct}'</StCorrect>
-                </StText>
-              ) : (
-                <span>{user}</span>
-              ),
-            )}
-          </StLine>
+    <StLine>
+      {result.map(({ userWord, correctWord }, index) => {
+        return correctWord ? (
+          <StText key={index} isLastWord={index === result.length - 1}>
+            <span>{userWord}</span>
+            <span>&nbsp;</span>
+            <StCorrect>'{correctWord}'</StCorrect>
+          </StText>
+        ) : (
+          <span key={index}>{userWord + " "}</span>
         );
       })}
-    </StTextWrapper>
+    </StLine>
   );
 }
 
 export default Correct;
-
-const StTextWrapper = styled.div`
-  width: 100%;
-
-  margin-bottom: 30px;
-  padding: 10px;
-  border-radius: 10px;
-
-  background-color: ${COLOR.dark200};
-`;
 
 const StLine = styled.div`
   position: relative;
@@ -52,14 +35,15 @@ const StLine = styled.div`
   line-height: 2;
 `;
 
-const StText = styled.div`
+const StText = styled.div<{ isLastWord: boolean }>`
   display: inline-block;
   position: relative;
   width: fit-content;
 
-  & > span {
+  & > span:nth-of-type(1) {
     background: ${COLOR.purpleOpacity200};
     border-bottom: 2px solid ${COLOR.purple};
+    white-space: ${({ isLastWord }) => (isLastWord ? "normal" : "pre")};
   }
 `;
 
