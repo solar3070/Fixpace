@@ -4,7 +4,7 @@ import { COLOR } from "@/constants";
 import useInputValidation from "@/hooks/useInputValidation";
 import { StepType } from "@/types";
 import { validateInput } from "@/utils";
-import { animateSpace } from "@/utils/animateSpace";
+import { animateSpace } from "@/utils";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { KeyboardEvent, Suspense, useState } from "react";

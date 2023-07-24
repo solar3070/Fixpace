@@ -1,8 +1,32 @@
+import { MAX_IMAGE_SIZE } from "@/constants";
 import { KeyboardEvent } from "react";
 
 let counter = 0;
 
-export const animateSpace = (e: KeyboardEvent<HTMLInputElement>) => {
+const setRandomPosition = (section: HTMLElement) => {
+  const { clientWidth, clientHeight } = document.documentElement;
+  const { top, left, bottom, right } = section.getBoundingClientRect();
+
+  let randX = 0;
+  let randY = 0;
+
+  const direction = Math.floor(Math.random() * 2);
+  if (!direction) {
+    randX = Math.round(Math.random() * clientWidth - MAX_IMAGE_SIZE);
+    const yRange = [top, clientHeight - MAX_IMAGE_SIZE - bottom];
+    const index = Math.floor(Math.random() * 2);
+    randY = Math.random() * yRange[index] + index * bottom;
+  } else {
+    randY = Math.round(Math.random() * clientHeight - MAX_IMAGE_SIZE);
+    const xRange = [left, clientWidth - MAX_IMAGE_SIZE - right];
+    const index = Math.floor(Math.random() * 2);
+    randX = Math.random() * xRange[index] + index * right;
+  }
+
+  return { randX, randY };
+};
+
+const animateSpace = (e: KeyboardEvent<HTMLInputElement>) => {
   if (counter > 15) return;
 
   const section = e.currentTarget.parentElement?.closest("section");
@@ -37,27 +61,4 @@ export const animateSpace = (e: KeyboardEvent<HTMLInputElement>) => {
   }
 };
 
-const MAX_IMAGE_SIZE = 35;
-
-const setRandomPosition = (section: HTMLElement) => {
-  const { clientWidth, clientHeight } = document.documentElement;
-  const { top, left, bottom, right } = section.getBoundingClientRect();
-
-  let randX = 0;
-  let randY = 0;
-
-  const direction = Math.floor(Math.random() * 2);
-  if (!direction) {
-    randX = Math.round(Math.random() * clientWidth - MAX_IMAGE_SIZE);
-    const yRange = [top, clientHeight - MAX_IMAGE_SIZE - bottom];
-    const index = Math.floor(Math.random() * 2);
-    randY = Math.random() * yRange[index] + index * bottom;
-  } else {
-    randY = Math.round(Math.random() * clientHeight - MAX_IMAGE_SIZE);
-    const xRange = [left, clientWidth - MAX_IMAGE_SIZE - right];
-    const index = Math.floor(Math.random() * 2);
-    randX = Math.random() * xRange[index] + index * right;
-  }
-
-  return { randX, randY };
-};
+export default animateSpace;
