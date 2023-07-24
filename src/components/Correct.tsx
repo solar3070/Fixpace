@@ -14,9 +14,9 @@ function Correct({ userInputList, correctList }: CorrectProps) {
         const result = checkUserInput(userInput, correctList[index]);
         return (
           <StLine key={index}>
-            {result.map(({ user, correct }) =>
+            {result.map(({ user, correct }, index) =>
               correct ? (
-                <StText>
+                <StText key={index}>
                   <span>{user}</span>
                   <StCorrect>'{correct}'</StCorrect>
                 </StText>
