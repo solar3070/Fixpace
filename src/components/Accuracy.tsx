@@ -1,19 +1,20 @@
 import { COLOR } from "@/constants";
 import { correctTextState } from "@/recoil/atom";
+import { StepType } from "@/types";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { useSetRecoilState } from "recoil";
 
 interface AccuracyProps {
   accuracy: number;
-  setSubmitted: (submitted: boolean) => void;
+  changeStep: (step: StepType) => void;
 }
 
-function Accuracy({ accuracy, setSubmitted }: AccuracyProps) {
+function Accuracy({ accuracy, changeStep }: AccuracyProps) {
   const setCorrectTextState = useSetRecoilState(correctTextState);
 
   const handleClick = () => {
-    setSubmitted(false);
+    changeStep(1);
     setCorrectTextState([]);
   };
 

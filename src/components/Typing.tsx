@@ -1,30 +1,25 @@
-import Accuracy from "@/components/Accuracy";
 import { Input, Skeleton } from "@/components/common";
-import Correct from "@/components/Correct";
 import Text from "@/components/Text";
 import { COLOR } from "@/constants";
 import useInputValidation from "@/hooks/useInputValidation";
-import { correctTextState } from "@/recoil/atom";
-import { calcAccuracy, validateInput } from "@/utils";
+import { StepType } from "@/types";
+import { validateInput } from "@/utils";
 import { animateSpace } from "@/utils/animateSpace";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { KeyboardEvent, Suspense, useState } from "react";
-import { useRecoilValue } from "recoil";
 
 interface TypingProps {
   keyword: string;
-  setSubmitted: (submitted: boolean) => void;
+  changeStep: (step: StepType) => void;
+  saveUserInput: (userInput: string) => void;
 }
 
-function Typing({ keyword, setSubmitted }: TypingProps) {
+function Typing({ keyword, changeStep, saveUserInput }: TypingProps) {
   const { error, handleError, resetError } = useInputValidation();
   const [sentenceList, setSentenceList] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [userInputList, setUserInputList] = useState<string[]>([]);
   const [spacePressed, setSpacePressed] = useState(false);
-  const [done, setDone] = useState(false);
-  const correctList = useRecoilValue(correctTextState);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.nativeEvent.isComposing) {
@@ -36,11 +31,11 @@ function Typing({ keyword, setSubmitted }: TypingProps) {
         return;
       }
       setCurrentIndex((prev) => prev + 1);
-      setUserInputList((prev) => [...prev, value]);
+      saveUserInput(value);
       e.currentTarget.value = "";
 
       if (currentIndex === sentenceList.length - 1) {
-        setDone(true);
+        changeStep(3);
       }
     }
 
@@ -64,34 +59,22 @@ function Typing({ keyword, setSubmitted }: TypingProps) {
 
   return (
     <>
-      {!done && (
-        <>
-          <Suspense fallback={<Skeleton />}>
-            <Text
-              keyword={keyword}
-              sentenceList={sentenceList}
-              currentIndex={currentIndex}
-              setSentenceList={setSentenceList}
-            />
-          </Suspense>
-          <Input
-            placeholder="제시된 문장에 올바른 띄어쓰기를 해주세요."
-            error={error}
-            onKeyDown={handleKeyDown}
-            onKeyUp={handleKeyUp}
-            onFocus={handleFocus}
-          />
-          <StSpace spacePressed={spacePressed}>space</StSpace>
-        </>
-      )}
-      {done && (
-        <>
-          <Correct userInputList={userInputList} correctList={correctList} />
-          <StAccuracy>
-            <Accuracy accuracy={calcAccuracy(userInputList, correctList)} setSubmitted={setSubmitted} />
-          </StAccuracy>
-        </>
-      )}
+      <Suspense fallback={<Skeleton />}>
+        <Text
+          keyword={keyword}
+          sentenceList={sentenceList}
+          currentIndex={currentIndex}
+          setSentenceList={setSentenceList}
+        />
+      </Suspense>
+      <Input
+        placeholder="제시된 문장에 올바른 띄어쓰기를 해주세요."
+        error={error}
+        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+        onFocus={handleFocus}
+      />
+      <StSpace spacePressed={spacePressed}>space</StSpace>
     </>
   );
 }
@@ -125,9 +108,4 @@ const StSpace = styled.div<{ spacePressed: boolean }>`
       box-shadow: inset 3px 8px 10px #5351c9;
       top: 2px;
     `};
-`;
-
-const StAccuracy = styled.div`
-  display: flex;
-  justify-content: end;
 `;
