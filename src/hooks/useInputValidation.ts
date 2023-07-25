@@ -19,11 +19,13 @@ function useInputValidation() {
     }
   };
 
-  const resetError = () => {
-    setError("");
+  const handleFocus = () => {
+    if (error !== "") {
+      setError("");
+    }
   };
 
-  return { error, handleError, resetError };
+  return { error, handleError, handleFocus };
 }
 
 export default useInputValidation;

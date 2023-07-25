@@ -12,7 +12,7 @@ interface KeywordProps {
 
 function Keyword({ saveUserInput, changeStep }: KeywordProps) {
   const [inputValue, setInputValue] = useState("");
-  const { error, handleError, resetError } = useInputValidation();
+  const { error, handleError, handleFocus } = useInputValidation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -23,12 +23,6 @@ function Keyword({ saveUserInput, changeStep }: KeywordProps) {
       return;
     }
     setInputValue(value);
-  };
-
-  const handleFocus = () => {
-    if (error !== "") {
-      resetError();
-    }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>, keyword: string) => {

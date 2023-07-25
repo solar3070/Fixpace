@@ -16,7 +16,7 @@ interface TypingProps {
 }
 
 function Typing({ keyword, changeStep, saveUserInput }: TypingProps) {
-  const { error, handleError, resetError } = useInputValidation();
+  const { error, handleError, handleFocus } = useInputValidation();
   const [sentenceList, setSentenceList] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [spacePressed, setSpacePressed] = useState(false);
@@ -48,12 +48,6 @@ function Typing({ keyword, changeStep, saveUserInput }: TypingProps) {
   const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === " ") {
       setSpacePressed(false);
-    }
-  };
-
-  const handleFocus = () => {
-    if (error !== "") {
-      resetError();
     }
   };
 
