@@ -20,3 +20,5 @@ export type CorrectUserInput = {
 };
 
 export type userInputType = "keyword" | "text";
+
+export type InputErrorType = "MIN_KEYWORD" | "MAX_KEYWORD" | "ACCURACY" | "LENGTH" | "NO_ERROR";

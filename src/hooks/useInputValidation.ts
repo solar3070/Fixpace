@@ -1,12 +1,14 @@
+import { InputErrorType } from "@/types";
 import { useState } from "react";
-
-export type ErrorType = "MAX_KEYWORD" | "ACCURACY" | "LENGTH" | "NO_ERROR";
 
 function useInputValidation() {
   const [error, setError] = useState("");
 
-  const handleError = (type: ErrorType) => {
+  const handleError = (type: InputErrorType) => {
     switch (type) {
+      case "MIN_KEYWORD":
+        setError("* 키워드는 한 글자 이상 입력해 주세요.");
+        break;
       case "MAX_KEYWORD":
         setError("* 최대 글자 수를 초과했습니다.");
         break;

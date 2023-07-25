@@ -27,6 +27,10 @@ function Keyword({ saveUserInput, changeStep }: KeywordProps) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>, keyword: string) => {
     e.preventDefault();
+    if (!inputValue.length) {
+      handleError("MIN_KEYWORD");
+      return;
+    }
     saveUserInput("keyword", keyword);
     changeStep(2);
   };

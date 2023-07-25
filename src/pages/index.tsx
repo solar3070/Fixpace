@@ -4,7 +4,7 @@ import Result from "@/components/Result";
 import Typing from "@/components/Typing";
 import { correctTextState } from "@/recoil/atom";
 import { StepType, userInputType } from "@/types";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
 export default function Home() {
