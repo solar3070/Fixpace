@@ -11,3 +11,10 @@ export type SpellCheck = {
   suggestions: string[];
   info: string;
 };
+
+export type StepType = 1 | 2 | 3;
+
+export type CorrectUserInput = {
+  correctWord?: string;
+  userWord: string;
+};

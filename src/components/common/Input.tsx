@@ -36,6 +36,7 @@ function Input({
           value={value}
           maxLength={maxLength}
           isInvalid={error !== ""}
+          spellCheck="false"
           onFocus={onFocus}
           onChange={onChange}
           onKeyDown={onKeyDown}
