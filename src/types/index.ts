@@ -18,3 +18,5 @@ export type CorrectUserInput = {
   correctWord?: string;
   userWord: string;
 };
+
+export type userInputType = "keyword" | "text";
