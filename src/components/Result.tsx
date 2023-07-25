@@ -22,7 +22,7 @@ function Result({ userInputList, changeStep }: ResultProps) {
         {userInputList.map((userInput, index) => {
           const result = checkUserInput(userInput, correctList[index]);
           accuracySum += calcAccuracy(userInput, correctList[index]);
-          return <Correct result={result} />;
+          return <Correct key={index} result={result} />;
         })}
       </StTextWrapper>
       <StAccuracy>
