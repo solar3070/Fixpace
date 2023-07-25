@@ -16,7 +16,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         { role: "system", content: "You make a short novel in Korean." },
         {
           role: "user",
-          content: `Please write a novel in Korean that is more than 80 characters and less than 100 characters related to ${keyword}`,
+          content: `Please write a novel related to ${keyword} in Korean. 
+          Novel is more than 60 characters and less than 80 characters. 
+          If possible, try to keep novel to three or four sentences. 
+          A sentence should be about 20 characters long. 
+          Don't include English in a novel`,
         },
       ],
     });
