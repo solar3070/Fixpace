@@ -4,7 +4,7 @@ const COLOR = {
   gray100: "#989CAC",
   gray200: "#525567",
   purple: "#7F7CF7",
-  purpleOpacity: "rgba(127, 124, 247, 0.2)",
+  purpleOpacity100: "rgba(127, 124, 247, 0.2)",
   purpleOpacity200: "#7e7cf74b",
   dark100: "#43464F",
   dark100Opacity: "rgba(67, 70, 79, 0.4)",

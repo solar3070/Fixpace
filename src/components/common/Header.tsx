@@ -21,6 +21,6 @@ const StHeader = styled.header`
   margin-bottom: 30px;
   padding-bottom: 5px;
   border-bottom: 2px solid transparent;
-  border-image: linear-gradient(90deg, ${COLOR.purpleOpacity}, ${COLOR.purple}, ${COLOR.purpleOpacity});
+  border-image: linear-gradient(90deg, ${COLOR.purpleOpacity100}, ${COLOR.purple}, ${COLOR.purpleOpacity100});
   border-image-slice: 1;
 `;

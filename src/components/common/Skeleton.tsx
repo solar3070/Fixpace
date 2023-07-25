@@ -32,7 +32,7 @@ const loading = keyframes`
     background-color: ${COLOR.dark100Opacity};
   }
   50% {
-    background-color: ${COLOR.purpleOpacity};
+    background-color: ${COLOR.purpleOpacity100};
   }
   100% {
     background-color: ${COLOR.dark100Opacity};
