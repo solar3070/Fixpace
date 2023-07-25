@@ -7,16 +7,7 @@ const configuration = new Configuration({ apiKey: process.env.NEXT_PUBLIC_OPENAI
 const openai = new OpenAIApi(configuration);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Text | ResponseError>) {
-  if (!configuration.apiKey) {
-    res.status(500).json({ message: "OpenAI API key not configured, please follow instructions in README.md" });
-    return;
-  }
-
-  const keyword = req.body.keyword || "";
-  if (keyword.trim().length === 0) {
-    res.status(400).json({ message: "Please enter a valid keyword" });
-    return;
-  }
+  const keyword = req.body.keyword;
 
   try {
     const { data } = await openai.createChatCompletion({
@@ -25,7 +16,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         { role: "system", content: "You make a short novel in Korean." },
         {
           role: "user",
-          content: `Please write a novel in Korean that is more than 80 characters and less than 100 characters related to ${keyword}`,
+          content: `Please write a novel related to ${keyword} in Korean. 
+          Novel is more than 60 characters and less than 80 characters. 
+          If possible, try to keep novel to three or four sentences. 
+          A sentence should be about 20 characters long. 
+          Don't include English in a novel`,
         },
       ],
     });
@@ -38,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       if (error.response) {
         res.status(error.response.status).json(error.response.data);
       } else {
-        res.status(500).json({ message: "An error occurred during your request." });
+        res.status(500).json({ message: "Open AI 호출 중에 에러가 발생했습니다." });
       }
     }
   }

@@ -2,7 +2,7 @@ import { Input, Skeleton } from "@/components/common";
 import Text from "@/components/Text";
 import { COLOR } from "@/constants";
 import useInputValidation from "@/hooks/useInputValidation";
-import { StepType } from "@/types";
+import { StepType, userInputType } from "@/types";
 import { validateInput } from "@/utils";
 import { animateSpace } from "@/utils";
 import { css } from "@emotion/react";
@@ -12,11 +12,11 @@ import { KeyboardEvent, Suspense, useState } from "react";
 interface TypingProps {
   keyword: string;
   changeStep: (step: StepType) => void;
-  saveUserInput: (userInput: string) => void;
+  saveUserInput: (type: userInputType, userInput: string) => void;
 }
 
 function Typing({ keyword, changeStep, saveUserInput }: TypingProps) {
-  const { error, handleError, resetError } = useInputValidation();
+  const { error, handleError, handleFocus } = useInputValidation();
   const [sentenceList, setSentenceList] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [spacePressed, setSpacePressed] = useState(false);
@@ -31,7 +31,7 @@ function Typing({ keyword, changeStep, saveUserInput }: TypingProps) {
         return;
       }
       setCurrentIndex((prev) => prev + 1);
-      saveUserInput(value);
+      saveUserInput("text", value);
       e.currentTarget.value = "";
 
       if (currentIndex === sentenceList.length - 1) {
@@ -48,12 +48,6 @@ function Typing({ keyword, changeStep, saveUserInput }: TypingProps) {
   const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === " ") {
       setSpacePressed(false);
-    }
-  };
-
-  const handleFocus = () => {
-    if (error !== "") {
-      resetError();
     }
   };
 

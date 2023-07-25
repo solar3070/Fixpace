@@ -1,16 +1,18 @@
 import { Input } from "@/components/common";
 import { COLOR, MAX_KEYWORD } from "@/constants";
 import useInputValidation from "@/hooks/useInputValidation";
+import { StepType, userInputType } from "@/types";
 import styled from "@emotion/styled";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 interface KeywordProps {
-  onSubmit: (e: FormEvent<HTMLFormElement>, keyword: string) => void;
+  saveUserInput: (type: userInputType, userInput: string) => void;
+  changeStep: (step: StepType) => void;
 }
 
-function Keyword({ onSubmit }: KeywordProps) {
+function Keyword({ saveUserInput, changeStep }: KeywordProps) {
   const [inputValue, setInputValue] = useState("");
-  const { error, handleError, resetError } = useInputValidation();
+  const { error, handleError, handleFocus } = useInputValidation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -23,10 +25,14 @@ function Keyword({ onSubmit }: KeywordProps) {
     setInputValue(value);
   };
 
-  const handleFocus = () => {
-    if (error !== "") {
-      resetError();
+  const handleSubmit = (e: FormEvent<HTMLFormElement>, keyword: string) => {
+    e.preventDefault();
+    if (!inputValue.length) {
+      handleError("MIN_KEYWORD");
+      return;
     }
+    saveUserInput("keyword", keyword);
+    changeStep(2);
   };
 
   return (
@@ -34,7 +40,7 @@ function Keyword({ onSubmit }: KeywordProps) {
       <StInfoText>
         안녕하세요. 띄어쓰기 연습을 위한 Fi<span style={{ color: `${COLOR.purple}` }}>x</span>face 입니다.
       </StInfoText>
-      <form onSubmit={(e) => onSubmit(e, inputValue)}>
+      <form onSubmit={(e) => handleSubmit(e, inputValue)}>
         <Input
           placeholder="타이핑할 키워드를 입력해주세요."
           value={inputValue}
