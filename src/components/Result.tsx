@@ -21,7 +21,7 @@ function Result({ userInputList, changeStep }: ResultProps) {
       <StTextWrapper>
         {userInputList.map((userInput, index) => {
           const result = checkUserInput(userInput, correctList[index]);
-          accuracySum += calcAccuracy(result, userInput);
+          accuracySum += calcAccuracy(userInput, correctList[index]);
           return <Correct result={result} />;
         })}
       </StTextWrapper>
