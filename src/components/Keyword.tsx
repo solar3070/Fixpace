@@ -38,7 +38,13 @@ function Keyword({ saveUserInput, changeStep }: KeywordProps) {
   return (
     <>
       <StInfoText>
-        안녕하세요. 띄어쓰기 연습을 위한 Fi<span style={{ color: `${COLOR.purple}` }}>x</span>face 입니다.
+        <p>
+          안녕하세요. 띄어쓰기 연습 공간 Fi<span style={{ color: `${COLOR.purple}` }}>x</span>face 입니다.
+        </p>
+        <p>
+          <span style={{ color: `${COLOR.purple}` }}>AI가 제공하는 문장에 올바른 띄어쓰기</span>를 하며 띄어쓰기를
+          연습해요!
+        </p>
       </StInfoText>
       <form onSubmit={(e) => handleSubmit(e, inputValue)}>
         <Input
@@ -56,8 +62,10 @@ function Keyword({ saveUserInput, changeStep }: KeywordProps) {
 
 export default Keyword;
 
-const StInfoText = styled.h1`
+const StInfoText = styled.div`
   margin-bottom: 13px;
+
   font-size: 23px;
   color: ${COLOR.white};
+  line-height: 1.3;
 `;
