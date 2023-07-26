@@ -29,10 +29,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (correctText.length) {
+    if (correctText.length && step === 1) {
       setCorrectText([]);
     }
-  }, []);
+  }, [step]);
 
   return (
     <Layout>
