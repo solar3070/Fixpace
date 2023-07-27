@@ -15,13 +15,13 @@ interface TextProps {
 }
 
 function Text({ keyword, sentenceList, currentIndex, setSentenceList }: TextProps) {
+  const [correctText, setCorrectText] = useRecoilState(correctTextState);
   let text = "";
-  const textQuery = useGenerateText(keyword, sentenceList);
+  const textQuery = useGenerateText(keyword, text);
   if (textQuery.isSuccess) {
     text = textQuery.data.text;
   }
   const checkQuery = useSpellCheck(text, sentenceList);
-  const [correctText, setCorrectText] = useRecoilState(correctTextState);
 
   useEffect(() => {
     if (checkQuery.isSuccess && !sentenceList.length && !correctText.length) {
