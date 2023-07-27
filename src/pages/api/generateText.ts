@@ -1,40 +1,34 @@
-import type { ResponseError, Text } from "@/types";
-import { isAxiosError } from "axios";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { Configuration, OpenAIApi } from "openai";
+import { NextResponse } from "next/server";
 
-const configuration = new Configuration({ apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY });
-const openai = new OpenAIApi(configuration);
+export const config = { runtime: "edge", regions: "icn1" };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Text | ResponseError>) {
-  const keyword = req.body.keyword;
+export default async function handler(req: Request) {
+  const { keyword } = (await req.json()) as { keyword: string };
 
-  try {
-    const { data } = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: "You make a short novel in Korean." },
-        {
-          role: "user",
-          content: `Please write a novel related to ${keyword} in Korean. 
-          Novel is more than 60 characters and less than 80 characters. 
-          If possible, try to keep novel to three or four sentences. 
-          A sentence should be about 20 characters long. 
-          Don't include English in a novel`,
-        },
-      ],
-    });
-    const text = data.choices[0].message?.content;
-    if (text) {
-      res.status(200).json({ text });
-    }
-  } catch (error) {
-    if (isAxiosError<ResponseError>(error)) {
-      if (error.response) {
-        res.status(error.response.status).json(error.response.data);
-      } else {
-        res.status(500).json({ message: "Open AI 호출 중에 에러가 발생했습니다." });
-      }
-    }
-  }
+  const payload = {
+    model: "gpt-3.5-turbo",
+    messages: [
+      { role: "system", content: "You make a short novel in Korean." },
+      {
+        role: "user",
+        content: `Please write a novel related to ${keyword} in Korean.
+        Novel is more than 60 characters and less than 80 characters.
+        If possible, try to keep novel to three or four sentences.
+        A sentence should be about 20 characters long.
+        Don't include English in a novel`,
+      },
+    ],
+  };
+
+  const data = await fetch("https://api.openai.com/v1/chat/completions", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    },
+    method: "POST",
+    body: JSON.stringify(payload),
+  }).then((response) => response.json());
+
+  const text = data.choices[0].message?.content;
+  return NextResponse.json({ text });
 }
