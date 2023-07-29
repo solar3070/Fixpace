@@ -1,10 +1,9 @@
-import { Input, Skeleton } from "@/components/common";
+import { Input, RetryErrorBoundary, Skeleton } from "@/components/common";
 import Text from "@/components/Text";
 import { COLOR } from "@/constants";
 import useInputValidation from "@/hooks/useInputValidation";
 import { StepType, userInputType } from "@/types";
-import { validateInput } from "@/utils";
-import { animateSpace } from "@/utils";
+import { animateSpace, validateInput } from "@/utils";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { KeyboardEvent, Suspense, useState } from "react";
@@ -53,14 +52,16 @@ function Typing({ keyword, changeStep, saveUserInput }: TypingProps) {
 
   return (
     <>
-      <Suspense fallback={<Skeleton />}>
-        <Text
-          keyword={keyword}
-          sentenceList={sentenceList}
-          currentIndex={currentIndex}
-          setSentenceList={setSentenceList}
-        />
-      </Suspense>
+      <RetryErrorBoundary>
+        <Suspense fallback={<Skeleton />}>
+          <Text
+            keyword={keyword}
+            sentenceList={sentenceList}
+            currentIndex={currentIndex}
+            setSentenceList={setSentenceList}
+          />
+        </Suspense>
+      </RetryErrorBoundary>
       <Input
         placeholder="제시된 문장에 올바른 띄어쓰기를 해주세요."
         error={error}
