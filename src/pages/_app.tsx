@@ -5,7 +5,15 @@ import Head from "next/head";
 import { RecoilRoot } from "recoil";
 
 export const queryClient = new QueryClient({
-  defaultOptions: { queries: { retry: 0, suspense: true, refetchOnWindowFocus: false } },
+  defaultOptions: {
+    queries: {
+      retry: 0,
+      suspense: true,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+    },
+  },
 });
 
 export default function App({ Component, pageProps }: AppProps) {

@@ -45,8 +45,12 @@ const StAccuracy = styled.p`
 `;
 
 const StReplay = styled.button`
-  width: 50px;
-  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 45px;
+  height: 45px;
 
   border: none;
   border-radius: 10px;

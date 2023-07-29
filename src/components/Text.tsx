@@ -17,7 +17,7 @@ interface TextProps {
 function Text({ keyword, sentenceList, currentIndex, setSentenceList }: TextProps) {
   const [correctText, setCorrectText] = useRecoilState(correctTextState);
   let text = "";
-  const textQuery = useGenerateText(keyword, text);
+  const textQuery = useGenerateText(keyword, sentenceList);
   if (textQuery.isSuccess) {
     text = textQuery.data.text;
   }
