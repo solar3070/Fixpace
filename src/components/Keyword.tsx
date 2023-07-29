@@ -39,7 +39,7 @@ function Keyword({ saveUserInput, changeStep }: KeywordProps) {
     <>
       <StInfoText>
         <p>
-          안녕하세요. 띄어쓰기 연습 공간 Fi<span style={{ color: `${COLOR.purple}` }}>x</span>face 입니다.
+          안녕하세요. 띄어쓰기 연습 공간 Fi<span style={{ color: `${COLOR.purple}` }}>x</span>pace 입니다.
         </p>
         <p>
           <span style={{ color: `${COLOR.purple}` }}>AI가 제공하는 문장에 올바른 띄어쓰기</span>를 하며 띄어쓰기를
