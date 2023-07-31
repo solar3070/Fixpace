@@ -59,7 +59,7 @@
 $ git clone https://github.com/solar3070/Fixpace.git
 $ cd Fixpace
 $ cat > .env
-NEXT_PUBLIC_OPENAI_API_KEY=[Open AI API key 입력]
+OPENAI_API_KEY=[Open AI API key 입력]
 $ yarn
 $ yarn dev
 ```
