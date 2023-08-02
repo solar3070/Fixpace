@@ -54,6 +54,15 @@ const StSkeleton = styled.div`
   border-radius: 10px;
 
   background-color: ${COLOR.dark200};
+
+  @media (max-width: 750px) {
+    gap: 8px;
+  }
+
+  @media (max-width: 500px) {
+    gap: 5px;
+    margin-bottom: 20px;
+  }
 `;
 
 const StLine = styled.div<{ width: string }>`
@@ -64,6 +73,16 @@ const StLine = styled.div<{ width: string }>`
   background-color: ${COLOR.dark100};
 
   animation: ${loading} 1.8s infinite;
+
+  @media (max-width: 750px) {
+    height: 23px;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 750px) {
+    height: 20px;
+    border-radius: 3px;
+  }
 `;
 
 const StMessage = styled.div`
@@ -74,4 +93,12 @@ const StMessage = styled.div`
 
   color: ${COLOR.gray100};
   white-space: nowrap;
+
+  @media (max-width: 750px) {
+    font-size: 15px;
+  }
+
+  @media (max-width: 750px) {
+    font-size: 10px;
+  }
 `;

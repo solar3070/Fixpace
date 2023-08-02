@@ -56,6 +56,11 @@ const StTextWrapper = styled.div`
   border-radius: 10px;
 
   background-color: ${COLOR.dark200};
+
+  @media (max-width: 500px) {
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
 `;
 
 const StText = styled.p<{ current: boolean }>`
@@ -73,4 +78,12 @@ const StText = styled.p<{ current: boolean }>`
       background-color: ${COLOR.dark300};
       color: ${COLOR.white};
     `};
+
+  @media (max-width: 750px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 16px;
+  }
 `;

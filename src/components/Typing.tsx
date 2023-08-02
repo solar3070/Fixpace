@@ -103,4 +103,23 @@ const StSpace = styled.div<{ spacePressed: boolean }>`
       box-shadow: inset 3px 8px 10px #5351c9;
       top: 2px;
     `};
+
+  @media (max-width: 750px) {
+    width: 330px;
+    height: 38px;
+    margin: 30px 0 10px 0;
+
+    border-radius: 8px;
+    font-size: 17px;
+  }
+
+  @media (max-width: 500px) {
+    width: 75%;
+    max-width: 330px;
+    height: 33px;
+    margin: 15px 0 5px 0;
+
+    border-radius: 7px;
+    font-size: 14px;
+  }
 `;
