@@ -14,9 +14,12 @@ function Accuracy({ accuracy, changeStep }: AccuracyProps) {
       <StAccuracy>
         정확도 <span style={{ color: COLOR.purple }}>{accuracy}</span>%
       </StAccuracy>
-      <StReplay onClick={() => changeStep(1)}>
-        <Image src="/icons/replay.svg" alt="다시하기" width={19} height={25} />
-      </StReplay>
+      <StReplayWrapper onClick={() => changeStep(1)}>
+        <StReplay>
+          <Image src="/icons/replay.svg" alt="다시하기" fill />
+        </StReplay>
+        {/* <Image src="/icons/replay.svg" alt="다시하기" width={19} height={25} /> */}
+      </StReplayWrapper>
     </StAccuracyWrapper>
   );
 }
@@ -35,6 +38,17 @@ const StAccuracyWrapper = styled.div`
 
   border: 2px solid ${COLOR.dark100};
   border-radius: 10px;
+
+  @media (max-width: 750px) {
+    height: 70px;
+    padding: 17px;
+  }
+
+  @media (max-width: 500px) {
+    height: 50px;
+    padding: 13px;
+    border-radius: 8px;
+  }
 `;
 
 const StAccuracy = styled.p`
@@ -42,9 +56,19 @@ const StAccuracy = styled.p`
 
   color: ${COLOR.white};
   font-size: 30px;
+
+  @media (max-width: 750px) {
+    padding: 7px 10px 0px 0;
+    font-size: 25px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 4px 7px 0px 0;
+    font-size: 18px;
+  }
 `;
 
-const StReplay = styled.button`
+const StReplayWrapper = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,4 +81,32 @@ const StReplay = styled.button`
 
   background-color: ${COLOR.dark100};
   cursor: pointer;
+
+  @media (max-width: 750px) {
+    width: 35px;
+    height: 35px;
+  }
+
+  @media (max-width: 500px) {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+`;
+
+const StReplay = styled.div`
+  position: relative;
+
+  width: 19px;
+  height: 25px;
+
+  @media (max-width: 750px) {
+    width: 17px;
+    height: 23px;
+  }
+
+  @media (max-width: 500px) {
+    width: 14px;
+    height: 18px;
+  }
 `;
