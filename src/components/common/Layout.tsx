@@ -26,6 +26,12 @@ const StLayout = styled.main`
   align-items: center;
 
   height: 100vh;
+  padding: 30px;
+
+  @media (max-width: 500px) {
+    align-items: start;
+    padding: 10px;
+  }
 `;
 
 const StContent = styled.section`
@@ -37,4 +43,16 @@ const StContent = styled.section`
   border-radius: 20px;
 
   background-color: ${COLOR.dark300};
+
+  @media (max-width: 750px) {
+    min-width: auto;
+    width: 600px;
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
+    padding: 20px;
+
+    border-radius: 15px;
+  }
 `;
