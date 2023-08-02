@@ -68,4 +68,12 @@ const StInfoText = styled.div`
   font-size: 23px;
   color: ${COLOR.white};
   line-height: 1.3;
+
+  @media (max-width: 750px) {
+    font-size: 19px;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 15px;
+  }
 `;

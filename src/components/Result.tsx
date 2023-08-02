@@ -59,6 +59,10 @@ const StTextWrapper = styled.div`
   border-radius: 10px;
 
   background-color: ${COLOR.dark200};
+
+  @media (max-width: 500px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const StAccuracy = styled.div`

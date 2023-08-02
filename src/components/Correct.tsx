@@ -33,6 +33,14 @@ const StLine = styled.div`
   color: ${COLOR.white};
   font-size: 26px;
   line-height: 2;
+
+  @media (max-width: 750px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 16px;
+  }
 `;
 
 const StText = styled.div<{ isLastWord: boolean }>`
@@ -54,4 +62,14 @@ const StCorrect = styled.div`
   color: ${COLOR.purple};
   font-size: 17px;
   line-height: 3;
+
+  @media (max-width: 750px) {
+    top: -23px;
+    font-size: 15px;
+  }
+
+  @media (max-width: 500px) {
+    top: -20px;
+    font-size: 13px;
+  }
 `;

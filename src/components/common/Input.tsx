@@ -42,7 +42,9 @@ function Input({
           onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}
         />
-        <Image src="/icons/enter.svg" alt="엔터 아이콘" width={14} height={11} />
+        <StEnter>
+          <Image src="/icons/enter.svg" alt="엔터 아이콘" fill />
+        </StEnter>
       </StInputWrapper>
       <StWrapper>
         {error && <StErrorMessage>{error}</StErrorMessage>}
@@ -79,6 +81,29 @@ const StInputWrapper = styled.div`
   border-radius: 10px;
 
   background-color: ${COLOR.dark200};
+
+  @media (max-width: 750px) {
+    padding: 5px 10px;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+`;
+
+const StEnter = styled.div`
+  position: relative;
+  object-fit: contain;
+
+  width: 14px;
+  height: 11px;
+
+  @media (max-width: 750px) {
+    width: 10px;
+    height: 8px;
+  }
 `;
 
 const StInput = styled.input<{ isInvalid: boolean }>`
@@ -108,6 +133,14 @@ const StInput = styled.input<{ isInvalid: boolean }>`
     css`
       animation: ${shake} 0.2s ease-in-out 2;
     `};
+
+  @media (max-width: 750px) {
+    font-size: 19px;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 16px;
+  }
 `;
 
 const StWrapper = styled.div`
@@ -124,6 +157,14 @@ const StCounter = styled.div`
   padding: 10px;
   font-size: 15px;
   color: ${COLOR.gray100};
+
+  @media (max-width: 750px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 11px;
+  }
 `;
 
 const StErrorMessage = styled.p`
@@ -133,4 +174,12 @@ const StErrorMessage = styled.p`
   padding: 10px 0 0 10px;
   font-size: 15px;
   color: ${COLOR.purple};
+
+  @media (max-width: 750px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 11px;
+  }
 `;
