@@ -1,11 +1,13 @@
 import { Layout } from "@/components/common";
 import Keyword from "@/components/Keyword";
-import Result from "@/components/Result";
-import Typing from "@/components/Typing";
 import { correctTextState } from "@/recoil/atom";
 import { StepType, userInputType } from "@/types";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
+
+const Typing = dynamic(import("@/components/Typing"));
+const Result = dynamic(import("@/components/Result"));
 
 export default function Home() {
   const [keyword, setKeyword] = useState("");
