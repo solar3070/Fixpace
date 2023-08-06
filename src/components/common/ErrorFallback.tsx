@@ -41,6 +41,14 @@ const StErrorMessage = styled.p`
   font-size: 22px;
   line-height: 1.4;
   white-space: pre;
+
+  @media (max-width: 750px) {
+    font-size: 19px;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 16px;
+  }
 `;
 
 const StRetry = styled.button`
