@@ -33,6 +33,7 @@ export default function Home() {
   useEffect(() => {
     if (correctText.length && step === 1) {
       setCorrectText([]);
+      setUserInputList([]);
     }
   }, [step]);
 
