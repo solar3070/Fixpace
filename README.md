@@ -7,7 +7,7 @@
 </div>
 
 ## ⛓️ 프로젝트 정보
-> **Fixpace 바로가기 : https://fixpace.site**
+> Fixpace 바로가기 : ~https://fixpace.site~ 도메인 만료
 > 
 > **피그마 디자인 보기 : [🔗 Link](https://www.figma.com/file/WUZVvkGvyYDJZz4qinVfAy/Fixpace-Design?type=design&node-id=0%3A1&mode=design&t=l50vBk1aKgrVJVZ5-1)**
 
